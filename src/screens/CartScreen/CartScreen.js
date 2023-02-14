@@ -11,7 +11,13 @@ export default function CartScreen() {
     return <CartItem style={styles.cartItem} cartItem={item} />;
   };
   const renderCartItems = cartItems => {
-    return <FlatList data={cartItems} renderItem={renderCartItem} />;
+    return (
+      <FlatList
+        data={cartItems}
+        renderItem={renderCartItem}
+        showsVerticalScrollIndicator={false}
+      />
+    );
   };
   return (
     <View style={styles.container}>

@@ -4,7 +4,8 @@ import ReusableTextInput from '../../components/ReusableTextInput';
 import MainButton from '../../components/MainButton';
 import styles from './LoginScreenStyle';
 
-export default function LoginScreen() {
+export default function LoginScreen(props) {
+  const {navigation} = props;
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Enter Your Phone Number</Text>
@@ -17,7 +18,12 @@ export default function LoginScreen() {
         />
       </View>
       <View style={styles.buttonView}>
-        <MainButton title="DONE" />
+        <MainButton
+          title="DONE"
+          onPress={() => {
+            navigation.navigate('ConfirmationCodeScreen');
+          }}
+        />
       </View>
     </View>
   );

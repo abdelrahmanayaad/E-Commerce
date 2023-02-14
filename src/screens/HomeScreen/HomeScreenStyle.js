@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: PADDING.mdPadding,
     paddingTop: PADDING.mdPadding,
+    backgroundColor: COLORS.white,
   },
   componentView: {
     marginBottom: MARGIN.mdMargin,

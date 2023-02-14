@@ -12,19 +12,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: PADDING.mdPadding,
+    backgroundColor: COLORS.white,
   },
   cartItem: {
     marginBottom: MARGIN.lgMargin,
   },
   footer: {
-    // flex: 1,
     justifyContent: 'flex-end',
   },
   footerContentView: {
-    // flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingTop: PADDING.mdPadding,
   },
   price: {
     flex: 1,

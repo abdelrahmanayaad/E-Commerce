@@ -26,7 +26,7 @@ const renderCategoriesList = categories => (
 );
 export default function HomeScreen() {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       <View style={styles.componentView}>
         <Text style={styles.title}>Category</Text>
         {renderCategoriesList(DummyCategories)}

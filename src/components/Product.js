@@ -1,5 +1,13 @@
 import React, {Fragment} from 'react';
-import {StyleSheet, Text, View, Dimensions, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Dimensions,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {RFValue} from 'react-native-responsive-fontsize';
 import {COLORS, defaultFontFamily} from '../constants/Constants';
 import Card from './Card';
@@ -12,11 +20,15 @@ const imageHeight = imageWidth * 1.5;
 
 export default function Product(props) {
   const {product, style} = props;
+  const navigation = useNavigation();
   return (
     // <View style={{alignItems: 'flex-start'}}>
     <View style={style}>
       <Card>
-        <Image source={{uri: product.image}} style={styles.categoryImage} />
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ProductScreen', {productId: 1})}>
+          <Image source={{uri: product.image}} style={styles.categoryImage} />
+        </TouchableOpacity>
       </Card>
       <Price price={product.price} discount={product.discount} />
       <Text style={styles.title}>{product.name}</Text>

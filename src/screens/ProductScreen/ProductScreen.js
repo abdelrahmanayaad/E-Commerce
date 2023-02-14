@@ -9,8 +9,9 @@ import {DummyProduct, DummyProductWithDiscount} from '../../utils/DummyData';
 import styles from './ProductScreenStyle';
 
 export default function ProductScreen(props) {
-  const {productId} = props;
+  const {productId} = props.route.params; // passing params from component to another component
   const getProduct = productId => {
+    // console.log(productId);
     return DummyProduct;
   };
   const product = getProduct(productId);

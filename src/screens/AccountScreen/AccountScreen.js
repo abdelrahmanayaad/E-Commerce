@@ -3,7 +3,8 @@ import React, {Fragment} from 'react';
 import styles from './AccountScreenStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-export default function AccountScreen() {
+export default function AccountScreen(props) {
+  const {navigation} = props;
   const renderHeader = () => {
     return (
       <View style={styles.header}>
@@ -16,10 +17,10 @@ export default function AccountScreen() {
       </View>
     );
   };
-  const renderList = (iconName, title) => {
+  const renderList = (iconName, title, onPress) => {
     return (
       <View>
-        <TouchableOpacity style={styles.listViewComponent}>
+        <TouchableOpacity style={styles.listViewComponent} onPress={onPress}>
           <Ionicons name={iconName} style={styles.iconList} />
           <Text style={styles.titleList}>{title}</Text>
         </TouchableOpacity>
@@ -30,10 +31,18 @@ export default function AccountScreen() {
   return (
     <View style={styles.container}>
       {renderHeader()}
-      {renderList('person-outline', 'Profile')}
-      {renderList('location-outline', 'Shipping address')}
-      {renderList('cart-outline', 'Previous orders')}
-      {renderList('log-out-outline', 'Log out')}
+      {renderList('person-outline', 'Profile', () =>
+        navigation.navigate('UpdateProfileScreen'),
+      )}
+      {renderList('location-outline', 'Shipping address', () =>
+        navigation.navigate('AddAddressScreen'),
+      )}
+      {renderList('cart-outline', 'Previous orders', () =>
+        navigation.navigate('OrderScreen'),
+      )}
+      {renderList('log-out-outline', 'Log out', () =>
+        navigation.navigate('UpdateProfileScreen'),
+      )}
     </View>
   );
 }
