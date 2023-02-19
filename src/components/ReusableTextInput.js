@@ -18,6 +18,8 @@ export default function ReusableTextInput(props) {
     borderColor,
     borderRadius,
     keyboardType,
+    valid,
+    time,
     style,
     ...rest
   } = props;
@@ -65,6 +67,11 @@ export default function ReusableTextInput(props) {
         ]}
       />
       {right && <Icon name={right} size={RFValue(20)} color={'#bbb'} />}
+      {valid && time ? (
+        <Icon name={'check'} size={RFValue(20)} color={'green'} />
+      ) : time ? (
+        <Icon name={'x'} size={RFValue(20)} color={'red'} />
+      ) : null}
     </View>
   );
 }

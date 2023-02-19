@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const formatTimer = totalSeconds => {
   const seconds = totalSeconds % 60;
   const minutes = (totalSeconds - seconds) / 60;
@@ -13,4 +15,13 @@ const actualPrice = (price, discount) => {
   return price;
 };
 
-export {formatTimer, actualPrice};
+const configureAxios = () => {
+  /* 
+  ! put base url with every axios request instead of write base url every request 
+  ! axios.defaults.baseURL -> equal base url
+  */
+  // TODO -> must execute this function in the first 1- app.js or index.js
+  axios.defaults.baseURL = 'http://www.rncourseproject.com/app';
+};
+
+export {formatTimer, actualPrice, configureAxios};
