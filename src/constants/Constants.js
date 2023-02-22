@@ -3,6 +3,8 @@ import {RFValue} from 'react-native-responsive-fontsize';
 const defaultFontFamily = 'RCB500';
 const BoldFontFamily = 'RCB';
 const CURRENCY = '$';
+const TOKEN_KEY = 'Keys.TOKEN';
+const USER_KEY = 'Keys.USER';
 const FONTS = {
   h1: RFValue(22),
   h2: RFValue(20),
@@ -45,6 +47,8 @@ export {
   defaultFontFamily,
   BoldFontFamily,
   CURRENCY,
+  TOKEN_KEY,
+  USER_KEY,
   FONTS,
   PADDING,
   COLORS,

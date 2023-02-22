@@ -5,10 +5,17 @@ import MainButton from '../../components/MainButton';
 import styles from './ConfirmationCodeScreenStyle';
 import {validate} from '../../utils/Validate';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {TOKEN_KEY, USER_KEY} from '../../constants/Constants';
+import {connect, useDispatch} from 'react-redux';
+import {setToken, setUser} from '../../redux/actions/AuthActionCreators';
 
-export default function ConfirmationCodeScreen(props) {
+function ConfirmationCodeScreen(props) {
   const phone = props.route.phone;
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  //! using it with connect function
+  ////const {navigation, setToken, setUser} = props;
   const {navigation} = props;
   const [input, setInput] = useState({
     value: 0,
@@ -29,6 +36,18 @@ export default function ConfirmationCodeScreen(props) {
         .post('/verify/validate', {phone, code: input.value})
         .then(res => {
           console.log(res.data);
+          const {token, userData} = res.data;
+          axios.defaults.headers.Authorization = 'Bearer' + token;
+          AsyncStorage.setItem(TOKEN_KEY, token);
+          AsyncStorage.setItem(USER_KEY, JSON.stringify(userData));
+          dispatch(setToken(token));
+          dispatch(setUser(userData));
+          /*.then(() => {
+            AsyncStorage.getItem(TOKEN_KEY).then(res => {
+              //! to confirm if the token store or not getItem return in promise the value
+              console.log(res);
+            });
+          });*/
         })
         .catch(error => console.log(error))
         .finally(() => {
@@ -75,3 +94,16 @@ export default function ConfirmationCodeScreen(props) {
     </View>
   );
 }
+// ? using connect function from react-redux
+////const mapDispatchToProps = dispatch => ({
+/**
+ * TODO setToken is a attribute in object , the value of it is a function take parameter to do action , ...
+ * TODO type is SET_TOKEN, take param and put it in the token in global state ,
+ * * again this for setUser
+ */
+////setToken: token => dispatch({type: 'SET_TOKEN', payload: {token}}),
+////setUser: user => dispatch({type: 'SET_USER', payload: {user}}),
+////});
+////export default connect(null, mapDispatchToProps)(ConfirmationCodeScreen);
+
+export default ConfirmationCodeScreen;

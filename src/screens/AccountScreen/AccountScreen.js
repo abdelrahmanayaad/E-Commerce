@@ -2,9 +2,13 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {Fragment} from 'react';
 import styles from './AccountScreenStyle';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {connect, useSelector} from 'react-redux';
 
-export default function AccountScreen(props) {
+function AccountScreen(props) {
+  // ! with connect function
+  // const { navigation, user } = props;
   const {navigation} = props;
+  const user = useSelector(state => state.auth.user);
   const renderHeader = () => {
     return (
       <View style={styles.header}>
@@ -46,3 +50,7 @@ export default function AccountScreen(props) {
     </View>
   );
 }
+
+////const mapStateToProps = state => ({user: state.auth.user});
+////export default connect(mapStateToProps)(AccountScreen);
+export default AccountScreen;
