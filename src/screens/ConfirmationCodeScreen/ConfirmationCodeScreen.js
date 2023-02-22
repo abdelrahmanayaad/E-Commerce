@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import ReusableTextInput from '../../components/ReusableTextInput';
 import MainButton from '../../components/MainButton';
@@ -7,13 +7,21 @@ import {validate} from '../../utils/Validate';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {TOKEN_KEY, USER_KEY} from '../../constants/Constants';
-import {connect, useDispatch} from 'react-redux';
-import {setToken, setUser} from '../../redux/actions/AuthActionCreators';
+import {connect, useDispatch, useSelector} from 'react-redux';
+import {
+  confirmationCode,
+  setToken,
+  setUser,
+} from '../../redux/actions/AuthActionCreators';
+import {showError} from '../../utils/HelperFunctions';
 
 function ConfirmationCodeScreen(props) {
   const phone = props.route.phone;
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(state => state.auth.isConfirmCode);
+  const success = useSelector(state => state.auth.confirmCodeSuccess);
+  const failure = useSelector(state => state.auth.confirmCodeFailure);
   //! using it with connect function
   ////const {navigation, setToken, setUser} = props;
   const {navigation} = props;
@@ -22,6 +30,11 @@ function ConfirmationCodeScreen(props) {
     isValid: false,
     times: false,
   });
+
+  useEffect(() => {
+    showError('Code is wrong');
+  }, [failure]);
+
   const updateInput = inputValue => {
     setInput({
       ...input,
@@ -31,6 +44,7 @@ function ConfirmationCodeScreen(props) {
   };
   const doneHandler = () => {
     if (input.isValid) {
+      /*
       setIsLoading(true);
       axios
         .post('/verify/validate', {phone, code: input.value})
@@ -48,11 +62,12 @@ function ConfirmationCodeScreen(props) {
               console.log(res);
             });
           });*/
-        })
-        .catch(error => console.log(error))
-        .finally(() => {
-          setIsLoading(false);
-        });
+      // })
+      // .catch(error => console.log(error))
+      // .finally(() => {
+      //   setIsLoading(false);
+      // });
+      dispatch(confirmationCode(phone, input.value));
     }
   };
   return (

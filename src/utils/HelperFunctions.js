@@ -24,4 +24,8 @@ const configureAxios = () => {
   axios.defaults.baseURL = 'http://www.rncourseproject.com/app';
 };
 
-export {formatTimer, actualPrice, configureAxios};
+const showError = errorMessage => {
+  alert(errorMessage);
+};
+
+export {formatTimer, actualPrice, configureAxios, showError};
